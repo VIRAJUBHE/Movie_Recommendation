@@ -1,0 +1,23 @@
+package com.example.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.example.entity.Movie;
+import com.example.entity.WatchHistory;
+
+public interface WatchHistoryRepository extends JpaRepository<WatchHistory, Integer> {
+	
+	@Query("""
+			SELECT m
+			FROM Movie m
+			JOIN WatchHistory w
+			ON m.id = w.movieId
+			WHERE w.userId = :userId
+			ORDER BY w.watchedAt DESC
+			""")
+			List<Movie> findRecentlyWatched(@Param("userId") Integer userId);
+}

@@ -1,0 +1,9 @@
+package com.example.repository;
+
+public interface RatingRepository extends JpaRepository<Rating,Integer>{
+
+    List<Rating> findByMovieId(Integer movieId);
+
+    List<Rating> findByUserId(Integer userId);
+
+}
