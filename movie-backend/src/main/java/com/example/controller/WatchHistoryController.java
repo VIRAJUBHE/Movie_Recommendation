@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import com.example.entity.Movie;
 import com.example.entity.WatchHistory;
 import com.example.repository.WatchHistoryRepository;
 
+import jakarta.transaction.Transactional;
+
 @RestController
 @RequestMapping("/watch-history")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -24,8 +27,15 @@ public class WatchHistoryController {
     private WatchHistoryRepository watchHistoryRepository;
 
     @PostMapping
+    @Transactional
     public WatchHistory saveWatchHistory(
             @RequestBody WatchHistory history) {
+
+        watchHistoryRepository.deleteByUserIdAndMovieId(
+                history.getUserId(),
+                history.getMovieId());
+
+        history.setWatchedAt(LocalDateTime.now());
 
         return watchHistoryRepository.save(history);
     }

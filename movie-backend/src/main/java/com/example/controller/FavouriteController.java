@@ -31,6 +31,12 @@ public class FavouriteController {
 
 	    @PostMapping
 	    public Favourite addFavorite(@RequestBody Favourite fav){
+	    	if (favoriteRepository.existsByUserIdAndMovieId(
+	    			fav.getUserId(),
+	    			fav.getMovieId())) {
+	    		return fav;
+	    	}
+
 	        return favoriteRepository.save(fav);
 	    }
 

@@ -10,6 +10,8 @@ import com.example.entity.Movie;
 import com.example.entity.WatchHistory;
 
 public interface WatchHistoryRepository extends JpaRepository<WatchHistory, Integer> {
+
+	void deleteByUserIdAndMovieId(Integer userId, Integer movieId);
 	
 	@Query(value = """
 			SELECT m.*

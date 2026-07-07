@@ -51,13 +51,13 @@ public class MovieController {
         return movieRepository.findTopRatedMovies();
     }
     
-    @GetMapping("/recommend/{userId}")
-    public List<Movie> recommendMovies(@PathVariable Integer userId){
-
-        List<Integer> movieIds = ratingRepository.findRecommendedMovies(userId);
-
-        return movieRepository.findByIdIn(movieIds);
-    }
+//    @GetMapping("/recommend/{userId}")
+//    public List<Movie> recommendMovies(@PathVariable Integer userId){
+//
+//        List<Integer> movieIds = ratingRepository.findRecommendedMovies(userId);
+//
+//        return movieRepository.findByIdIn(movieIds);
+//    }
     
     @GetMapping("/genre/{genre}")
     public List<Movie> getMoviesByGenre(@PathVariable String genre){
@@ -74,36 +74,36 @@ public class MovieController {
         return movieRepository.getRecommendations(userId);
     }
     
-    @GetMapping("/page")
-    public Page<Movie> getMoviesByPage(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size){
-
-        Pageable pageable = PageRequest.of(page, size);
-
-        return movieRepository.findAll(pageable);
-    }
+//    @GetMapping("/page")
+//    public Page<Movie> getMoviesByPage(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "20") int size){
+//
+//        Pageable pageable = PageRequest.of(page, size);
+//
+//        return movieRepository.findAll(pageable);
+//    }
     
-    @GetMapping("/genres-with-movies")
-    public Map<String, List<Movie>> getGenresWithMovies() {
-
-        List<String> genres = movieRepository.findDistinctGenres();
-
-        Map<String, List<Movie>> result = new LinkedHashMap<>();
-
-        for (String genre : genres) {
-
-            List<Movie> movies = movieRepository
-                    .findByGenresContainingIgnoreCase(genre);
-
-            if (!movies.isEmpty()) {
-                result.put(genre, movies);
-            }
-
-        }
-
-        return result;
-    }
+//    @GetMapping("/genres-with-movies")
+//    public Map<String, List<Movie>> getGenresWithMovies() {
+//
+//        List<String> genres = movieRepository.findDistinctGenres();
+//
+//        Map<String, List<Movie>> result = new LinkedHashMap<>();
+//
+//        for (String genre : genres) {
+//
+//            List<Movie> movies = movieRepository
+//                    .findByGenresContainingIgnoreCase(genre);
+//
+//            if (!movies.isEmpty()) {
+//                result.put(genre, movies);
+//            }
+//
+//        }
+//
+//        return result;
+//    }
     
     
 }

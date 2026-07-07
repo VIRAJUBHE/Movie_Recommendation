@@ -26,8 +26,8 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 	@Query("SELECT m FROM Movie m WHERE m.genres LIKE %:genre%")
     List<Movie> findMoviesByGenre(String genre);
 	
-	@Query(value="SELECT DISTINCT genres FROM movies", nativeQuery = true)
-	List<String> findAllGenres();
+//	@Query(value="SELECT DISTINCT genres FROM movies", nativeQuery = true)
+//	List<String> findAllGenres();
 	
 	@Query(value = "SELECT DISTINCT TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(genres,'|',numbers.n),'|',-1)) genre FROM movies JOIN (SELECT 1 n UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5) numbers ON CHAR_LENGTH(genres)-CHAR_LENGTH(REPLACE(genres,'|',''))>=numbers.n-1", nativeQuery = true)
 	List<String> findDistinctGenres();
